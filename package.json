@@ -62,10 +62,11 @@
   },
   "dependencies": {
     "core-js": "^2.0.0",
+    "google-map-react": "^0.20.1",
     "normalize.css": "^4.0.0",
     "react": "^15.0.0",
-    "react-d3-map": "^0.8.3",
     "react-dom": "^15.0.0",
+    "react-pure-render": "^1.0.2",
     "react-router": "^2.8.1"
   }
 }

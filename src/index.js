@@ -13,7 +13,7 @@ ReactDOM.render(
 	<Router history={hashHistory}>
 		<Route path="/" component={Layout}>
 			<IndexRoute component={Home}></IndexRoute>
-			<Route path="dashboard" component={Dashboard}></Route>
+			<Route path="dashboard(/:country)" component={Dashboard}></Route>
 		</Route>
 	</Router>,
 app);

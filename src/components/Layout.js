@@ -1,5 +1,5 @@
 require('normalize.css/normalize.css');
-require('styles/App.css');
+require('styles/Layout.css');
 
 import React from 'react';
 import Header from './Header';
@@ -14,7 +14,7 @@ class Layout extends React.Component {
 			<Header></Header>
 			<nav className="layout-component">
 				<ul>
-					<li><Link to="/home">Home</Link></li>
+					<li><Link to="/">Home</Link></li>
 					<li><Link to="/dashboard">Dashboard</Link></li>
 				</ul>
 			</nav>
