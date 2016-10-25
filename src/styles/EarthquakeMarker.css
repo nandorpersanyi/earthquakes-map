@@ -1,3 +1,8 @@
 .earthquakemarker-component {
   border: 1px dashed #f00;
 }
+.earthquake-marker-round{
+	-moz-border-radius: 70px; 
+	-webkit-border-radius: 70px; 
+	border-radius: 70px;
+}

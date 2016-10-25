@@ -8,14 +8,19 @@ class EarthquakeMarker extends React.Component {
   constructor(props) {
     super();
   }
-
+  
   render() {
-    const { val } = this.props;
+    const { 0:lng, 1:lat, 2:depth } = this.props.geometry.coordinates;
+    const {mag,title,tsunami,status,place} = this.props.properties;
+    console.log((mag*0.115).toFixed(1))
 
+    const divStyle = {
+      width:(mag*10).toFixed(0) + 'px',
+      height:(mag*10).toFixed(0) + 'px',
+      backgroundColor: 'rgba(255,0,0,'+ (mag*0.115).toFixed(1) +')',
+    };
     return (
-      <li>
-        <span>{val}</span>
-      </li>
+      <div className="earthquake-marker-round" style={divStyle}>ff</div>
     );
   }
 }

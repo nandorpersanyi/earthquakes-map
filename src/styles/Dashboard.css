@@ -1,6 +1,6 @@
 .dashboard-component {
   border: 1px dashed #f00;
 }
-.dashboard-component div {
-  height:500px !important;
+#map-wrap > div:first-child {
+  height:700px !important;
 }

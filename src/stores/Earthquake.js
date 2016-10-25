@@ -4,39 +4,38 @@ import dispatcher from '../dispatcher';
 class Earthquake extends EventEmitter{
 	constructor(){
 		super();
-		this.earthquakes = [
-		{id:1212112,val:"bb"},
-		{id:1212121,val:"cc"},
-		{id:1212120,val:"aa"}
-		];
+		this.earthquakes = [];
+		this.earthquakeFilters = [];
 	}
 	getAll(){
 		return this.earthquakes;
 	}
-	filterData(){
-
-	}
-	addEarthquake(){
-		this.earthquakes.push({id:Date.now(),val:"dd"});
+	addFilter(){
+		this.earthquakeFilters.push();
 		this.emit("change");
 	}
-
-	handleApi(action){
+	handleActions(action){
 		switch(action.type){
-			case "GET_DATA":{
-				console.log(this.earthquakes);
-				break;
-			}
-			case "FILTER_DATA":{
+			case "ADD_FILTER":{
 				this.addEarthquake();
 				break;
 			}
+			case "RECEIVED_EARTHQUAKES":{
+				console.log('store received action')
+				this.earthquakes = action.data.body.features;
+				//console.log(this.earthquakes.body.features)
+				this.emit("change");
+				break;
+			}
+			case "ERROR_EARTHQUAKES":{
+				console.log(action.err)
+				break;
+			}
 		}
-		
 	}
 }
 
 const EarthquakeStore = new Earthquake;
-dispatcher.register(EarthquakeStore.handleApi.bind(EarthquakeStore))
+dispatcher.register(EarthquakeStore.handleActions.bind(EarthquakeStore))
 
 export default EarthquakeStore;
