@@ -59,13 +59,15 @@ class Dashboard extends React.Component {
 		return(
 			<div className="dashboard-component">
 				<div id="load-screen" style={loadScreenStyle}>Loading...</div>
-				<div id="map-title">{mapTitle}</div>
-				<div id="select-timeframe">
-					<select value="past-day" onChange={this.changeTimeFrame}>
-						<option value="past-day">Past Day</option>
-						<option value="past-hour">Past Hour</option>
-						<option value="past-7days">Past 7 Days</option>
-					</select>
+				<div id="map-header">
+					<div id="map-title"><h2>{mapTitle}</h2></div>
+					<div id="select-timeframe">
+						<select onChange={this.changeTimeFrame}>
+							<option value="past-day">Past Day</option>
+							<option value="past-hour">Past Hour</option>
+							<option value="past-7days">Past 7 Days</option>
+						</select>
+					</div>
 				</div>
 				<div id="map-wrap">
 					<GoogleMap

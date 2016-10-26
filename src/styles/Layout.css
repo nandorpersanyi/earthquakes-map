@@ -11,6 +11,9 @@ a{
   float: left;
   width: 100%;
 }
+.index nav{
+  border-bottom: 1px solid #fff;
+}
 .index img {
   margin: 40px auto;
   border-radius: 4px;

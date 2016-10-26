@@ -1,5 +1,7 @@
-.dashboard-component {
-  border: 1px dashed #f00;
+#map-header,#map-title,#map-wrap{
+	float: left;
+	width:100%;
+    position: relative;
 }
 #map-wrap > div:first-child {
   height:700px !important;
@@ -13,4 +15,17 @@
 	z-index: 1;
 	font-size: 2em;
 	background-color: rgba(0,0,0,0.6);
+}
+#map-title{
+    height: 30px;
+}
+#map-title h2{
+    text-align: center;
+    width: 100%;
+    margin: 0px;
+}
+#select-timeframe{
+	position: absolute;
+	right: 20px;
+    top: 5px;
 }

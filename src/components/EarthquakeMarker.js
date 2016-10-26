@@ -25,9 +25,12 @@ class EarthquakeMarker extends React.Component {
   render() {
     const { 0:lng, 1:lat, 2:depth } = this.props.geometry.coordinates;
     const {mag,title,tsunami,status,place} = this.props.properties;
+    const quakeRatio = mag*10;
     const earthquakeMarkerStyle = {
-      width:(mag*10).toFixed(0) + 'px',
-      height:(mag*10).toFixed(0) + 'px',
+      width:(quakeRatio).toFixed(0) + 'px',
+      height:(quakeRatio).toFixed(0) + 'px',
+      marginTop:'-'+((quakeRatio)/2).toFixed(0) + 'px',
+      marginLeft:'-'+((quakeRatio)/2).toFixed(0) + 'px',
       backgroundColor: 'rgba(255,0,0,'+ (mag*0.115).toFixed(1) +')',
     };
     const earthquakeDescStyle = this.state.showDesc;
