@@ -7,20 +7,43 @@ require('styles//EarthquakeMarker.css');
 class EarthquakeMarker extends React.Component {
   constructor(props) {
     super();
+    this.state = {
+      showDesc: { display: 'none' }
+    }
   }
-  
+  showDetails(){
+    this.setState({
+      showDesc: { display: 'block' }
+    });
+  }
+  hideDetails(){
+    this.setState({
+      showDesc: { display: 'none' }
+    });
+  }
+
   render() {
     const { 0:lng, 1:lat, 2:depth } = this.props.geometry.coordinates;
     const {mag,title,tsunami,status,place} = this.props.properties;
-    console.log((mag*0.115).toFixed(1))
-
-    const divStyle = {
+    const earthquakeMarkerStyle = {
       width:(mag*10).toFixed(0) + 'px',
       height:(mag*10).toFixed(0) + 'px',
       backgroundColor: 'rgba(255,0,0,'+ (mag*0.115).toFixed(1) +')',
     };
+    const earthquakeDescStyle = this.state.showDesc;
+
     return (
-      <div className="earthquake-marker-round" style={divStyle}>ff</div>
+      <div className="earthquake-marker-wrap">
+        <div className="earthquake-description" style={earthquakeDescStyle}>
+          <span><strong>Title:</strong> {title}</span>
+          <span><strong>Place:</strong> {place}</span>
+          <span><strong>Tsunami:</strong> {tsunami}</span>
+          <span><strong>Magnitude:</strong> {mag}</span>
+          <span><strong>Status:</strong> {status}</span>
+        </div>
+        <div onMouseOver={this.showDetails.bind(this, true)} onMouseOut={this.hideDetails.bind(this, true)} className="earthquake-marker-round" style={earthquakeMarkerStyle}></div>
+      </div>
+      
     );
   }
 }

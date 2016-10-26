@@ -16,7 +16,6 @@ class Dashboard extends React.Component {
 			earthquakes: EarthquakeStore.getAll()
 		}
 	}
-
 	componentWillMount(){
 		console.log('component mounted')
 		EarthquakeActions.getEarthquakes();
@@ -27,7 +26,6 @@ class Dashboard extends React.Component {
 			});
 		})
 	}
-
 	addFilter(){
 		EarthquakeActions.addFilter();
 	}
@@ -35,7 +33,7 @@ class Dashboard extends React.Component {
 	getData(){
 		EarthquakeActions.getData();
 	}
-
+	
 	static defaultProps = {
 		center: {lat: 59.938043, lng: 30.337157},
 		zoom: 1,
@@ -52,7 +50,7 @@ class Dashboard extends React.Component {
 		}
 		const earthquakeMarkers = earthquakes.map( function(elem){
 			const { 0:lng, 1:lat, 2:depth } = elem.geometry.coordinates;
-			return <EarthquakeMarker key={elem.id} lat={lat} lng={lng} {...elem}/>
+			return <EarthquakeMarker  key={elem.id} lat={lat} lng={lng} {...elem}/>
 		});
 		return(
 			<div className="dashboard-component">
@@ -68,8 +66,7 @@ class Dashboard extends React.Component {
 						{earthquakeMarkers}
 					</GoogleMap>
 				</div>
-				<button onClick={this.addFilter.bind(this)}>Add</button>
-				<button onClick={this.getData.bind(this)}>Get</button>
+				{/*<button onClick={this.addFilter.bind(this)}>Add</button>*/}
 			</div>
 		);
 	}

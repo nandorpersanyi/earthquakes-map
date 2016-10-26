@@ -1,8 +1,27 @@
 .earthquakemarker-component {
   border: 1px dashed #f00;
 }
+.earthquake-marker-wrap{
+	position: relative;
+}
 .earthquake-marker-round{
 	-moz-border-radius: 70px; 
 	-webkit-border-radius: 70px; 
 	border-radius: 70px;
+	cursor:pointer;
+}
+.earthquake-description{
+	position: absolute;
+	width:200px;
+	height:100px;
+	background-color:white;
+	color:black;
+	padding: 5px;
+	top:-100px;
+	left:-30px;
+	z-index:10;
+}
+.earthquake-description span{
+	display:block;
+	padding: 2px;
 }
