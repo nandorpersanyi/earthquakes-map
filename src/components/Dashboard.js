@@ -5,7 +5,7 @@ import React from 'react';
 import GoogleMap from 'google-map-react';
 import EarthquakeStore from 'stores//Earthquake';
 import * as EarthquakeActions from 'actions//EarthquakeActions';
-import EarthquakeMarker from './EarthquakeMarker';
+import Earthquakemarker from './Earthquakemarker';
 
 require('styles//Dashboard.css');
 
@@ -15,7 +15,7 @@ class Dashboard extends React.Component {
 		this.state = {
 			earthquakes: [],
 			mapTitle: '',
-			ready: {display:'block'},
+			ready: {display:'block'}
 		}
 	}
 
@@ -53,8 +53,8 @@ class Dashboard extends React.Component {
 			styles: [{ stylers: [{ 'saturation': -100 }, { 'gamma': 0.8 }, { 'lightness': 4 }, { 'visibility': 'on' }] }]
 		}
 		const earthquakeMarkers = earthquakes.map( function(elem){
-			const { 0:lng, 1:lat, 2:depth } = elem.geometry.coordinates;
-			return <EarthquakeMarker  key={elem.id} lat={lat} lng={lng} {...elem}/>
+			const { 0:lng, 1:lat } = elem.geometry.coordinates;
+			return <Earthquakemarker  key={elem.id} lat={lat} lng={lng} {...elem}/>
 		});
 		return(
 			<div className="dashboard-component">

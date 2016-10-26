@@ -2,9 +2,8 @@ import dispatcher from '../dispatcher';
 import Request from 'superagent';
 
 export function getEarthquakes(timeFrame){
-	console.log('getEarthquakes action called')
 	dispatcher.dispatch({
-		type: "FETCHING_EARTHQUAKES"
+		type: 'FETCHING_EARTHQUAKES'
 	});
 	let apiTimeframe = '';
 	let apiTimeframeTitle = '';
@@ -26,17 +25,17 @@ export function getEarthquakes(timeFrame){
 		}
 	}
 	Request(
-		'GET', 
+		'GET',
 		apiTimeframe
 		).then((data)=>{
 			dispatcher.dispatch({
-				type: "RECEIVED_EARTHQUAKES",
+				type: 'RECEIVED_EARTHQUAKES',
 				title: apiTimeframeTitle,
 				data: data
 			});
 		}, (err)=>{
 			dispatcher.dispatch({
-				type: "ERROR_EARTHQUAKES",
+				type: 'ERROR_EARTHQUAKES',
 				err: err
 			});
 		});

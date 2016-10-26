@@ -15,7 +15,10 @@ describe('DashboardComponent', () => {
   beforeEach(() => {
     component = createComponent(Dashboard);
   });
-
+  it('should render component', () => {
+    should.exist(component);
+    console.log(component.props.children)
+  });
   it('should have its component name as default className', () => {
     expect(component.props.className).to.equal('dashboard-component');
   });

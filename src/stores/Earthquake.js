@@ -1,4 +1,4 @@
-import { EventEmitter } from "events";
+import { EventEmitter } from 'events';
 import dispatcher from '../dispatcher';
 
 class Earthquake extends EventEmitter{
@@ -16,20 +16,19 @@ class Earthquake extends EventEmitter{
 	}
 	handleActions(action){
 		switch(action.type){
-			case "FETCHING_EARTHQUAKES":{
+			case 'FETCHING_EARTHQUAKES':{
 				this.earthquakes.ready = {display:'block'};
 				this.emit("change");
 				break;
 			}
-			case "RECEIVED_EARTHQUAKES":{
+			case 'RECEIVED_EARTHQUAKES':{
 				this.earthquakes.data = action.data.body.features;
 				this.earthquakes.title = action.title;
 				this.earthquakes.ready = {display:'none'};
-				this.emit("change");
+				this.emit('change');
 				break;
 			}
-			case "ERROR_EARTHQUAKES":{
-				console.log(action.err)
+			case 'ERROR_EARTHQUAKES':{
 				break;
 			}
 		}

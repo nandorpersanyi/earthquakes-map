@@ -15,7 +15,9 @@ describe('Home', () => {
   beforeEach(() => {
     component = createComponent(Home);
   });
-
+  it('should render component', () => {
+    should.exist(component);
+  });
   it('should have its component name as default className', () => {
     expect(component.props.className).to.equal('home-component');
   });
