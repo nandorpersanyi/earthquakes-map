@@ -4,26 +4,27 @@ import dispatcher from '../dispatcher';
 class Earthquake extends EventEmitter{
 	constructor(){
 		super();
-		this.earthquakes = [];
+		this.earthquakes = {
+			title: '',
+			data: [],
+			ready: {display:'none'}
+		}
 		this.earthquakeFilters = [];
 	}
 	getAll(){
 		return this.earthquakes;
 	}
-	addFilter(){
-		this.earthquakeFilters.push();
-		this.emit("change");
-	}
 	handleActions(action){
 		switch(action.type){
-			case "ADD_FILTER":{
-				this.addEarthquake();
+			case "FETCHING_EARTHQUAKES":{
+				this.earthquakes.ready = {display:'block'};
+				this.emit("change");
 				break;
 			}
 			case "RECEIVED_EARTHQUAKES":{
-				console.log('store received action')
-				this.earthquakes = action.data.body.features;
-				//console.log(this.earthquakes.body.features)
+				this.earthquakes.data = action.data.body.features;
+				this.earthquakes.title = action.title;
+				this.earthquakes.ready = {display:'none'};
 				this.emit("change");
 				break;
 			}

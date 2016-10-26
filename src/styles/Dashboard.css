@@ -4,3 +4,13 @@
 #map-wrap > div:first-child {
   height:700px !important;
 }
+#load-screen{
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	text-align: center;
+	padding-top: 20%;
+	z-index: 1;
+	font-size: 2em;
+	background-color: rgba(0,0,0,0.6);
+}

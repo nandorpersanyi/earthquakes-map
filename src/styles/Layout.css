@@ -3,14 +3,20 @@ body {
   color: #fff;
   background: #222;
 }
-
+a{
+  text-decoration: none;
+  color:#fff;
+}
+.index,.index main,.index nav,.index ul{
+  float: left;
+  width: 100%;
+}
 .index img {
   margin: 40px auto;
   border-radius: 4px;
   background: #fff;
   display: block;
 }
-
 .index .notice {
   margin: 20px auto;
   padding: 15px 0;
@@ -19,7 +25,10 @@ body {
   border-width: 1px 0;
   background: #666;
 }
-
-main{
-  height:500px;
+.index ul li{
+  list-style-type: none;
+  float: left;
+}
+.index ul li a{
+  padding: 10px;
 }

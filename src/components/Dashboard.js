@@ -13,35 +13,39 @@ class Dashboard extends React.Component {
 	constructor(){
 		super();
 		this.state = {
-			earthquakes: EarthquakeStore.getAll()
+			earthquakes: [],
+			mapTitle: '',
+			ready: {display:'block'},
 		}
 	}
+
 	componentWillMount(){
-		console.log('component mounted')
-		EarthquakeActions.getEarthquakes();
+		EarthquakeActions.getEarthquakes('past-day');
 		EarthquakeStore.on('change', ()=>{
-			console.log('changed')
+			const updateEarthquakes = EarthquakeStore.getAll();
 			this.setState({
-				earthquakes: EarthquakeStore.getAll()
+				earthquakes: updateEarthquakes.data,
+				mapTitle: updateEarthquakes.title,
+				ready: updateEarthquakes.ready
 			});
 		})
 	}
-	addFilter(){
-		EarthquakeActions.addFilter();
+	componentWillUnMount(){
+		EarthquakeStore.unbindListener('change');
 	}
-
-	getData(){
-		EarthquakeActions.getData();
+	changeTimeFrame(event){
+		EarthquakeActions.getEarthquakes(event.target.value);
 	}
 	
 	static defaultProps = {
-		center: {lat: 59.938043, lng: 30.337157},
-		zoom: 1,
-		greatPlaceCoords: {lat: 24.074295, lng: -21.569812}
+		center: {lat: 13.758966, lng: -25.398046},
+		zoom: 1
 	};
-	/*shouldComponentUpdate = shouldPureComponentUpdate;*/
 	render() {
+		const loadScreenStyle = this.state.ready;
+
 		const { earthquakes } = this.state;
+		const { mapTitle } = this.state;
 		const mapOptions = {
 			panControl: false,
 			mapTypeControl: false,
@@ -54,6 +58,15 @@ class Dashboard extends React.Component {
 		});
 		return(
 			<div className="dashboard-component">
+				<div id="load-screen" style={loadScreenStyle}>Loading...</div>
+				<div id="map-title">{mapTitle}</div>
+				<div id="select-timeframe">
+					<select value="past-day" onChange={this.changeTimeFrame}>
+						<option value="past-day">Past Day</option>
+						<option value="past-hour">Past Hour</option>
+						<option value="past-7days">Past 7 Days</option>
+					</select>
+				</div>
 				<div id="map-wrap">
 					<GoogleMap
 						bootstrapURLKeys={{
@@ -66,7 +79,6 @@ class Dashboard extends React.Component {
 						{earthquakeMarkers}
 					</GoogleMap>
 				</div>
-				{/*<button onClick={this.addFilter.bind(this)}>Add</button>*/}
 			</div>
 		);
 	}

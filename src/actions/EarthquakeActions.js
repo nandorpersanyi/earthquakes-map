@@ -1,23 +1,37 @@
 import dispatcher from '../dispatcher';
 import Request from 'superagent';
 
-export function addFilter(){
-	dispatcher.dispatch({
-		type: "FILTER_DATA"
-	});
-}
-
-export function getEarthquakes(){
+export function getEarthquakes(timeFrame){
 	console.log('getEarthquakes action called')
 	dispatcher.dispatch({
-		type: "FETCH_EARTHQUAKES"
+		type: "FETCHING_EARTHQUAKES"
 	});
+	let apiTimeframe = '';
+	let apiTimeframeTitle = '';
+	switch(timeFrame){
+		case 'past-day':{
+			apiTimeframe = 'https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_day.geojson';
+			apiTimeframeTitle = 'All earthquakes in the past day';
+			break;
+		}
+		case 'past-hour':{
+			apiTimeframe = 'https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_hour.geojson';
+			apiTimeframeTitle = 'All earthquakes in the past hour';
+			break;
+		}
+		case 'past-7days':{
+			apiTimeframe = 'https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geojson';
+			apiTimeframeTitle = 'All earthquakes in the past 7 days';
+			break;
+		}
+	}
 	Request(
 		'GET', 
-		'https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_day.geojson'
+		apiTimeframe
 		).then((data)=>{
 			dispatcher.dispatch({
 				type: "RECEIVED_EARTHQUAKES",
+				title: apiTimeframeTitle,
 				data: data
 			});
 		}, (err)=>{
