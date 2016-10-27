@@ -37,11 +37,11 @@ class Earthquakemarker extends React.Component {
     return (
       <div className="earthquakemarker-component">
         <div className="earthquake-description" style={earthquakeDescStyle}>
-          <span><strong>Title:</strong> {title}</span>
-          <span><strong>Place:</strong> {place}</span>
-          <span><strong>Tsunami:</strong> {tsunami}</span>
-          <span><strong>Magnitude:</strong> {mag}</span>
-          <span><strong>Status:</strong> {status}</span>
+          <span><strong>Title: </strong>{title}</span>
+          <span><strong>Place: </strong>{place}</span>
+          <span><strong>Tsunami: </strong>{tsunami}</span>
+          <span><strong>Magnitude: </strong>{mag}</span>
+          <span><strong>Status: </strong>{status}</span>
         </div>
         <div onMouseOver={this.showDetails.bind(this, true)} onMouseOut={this.hideDetails.bind(this, true)} className="earthquake-marker-round" style={earthquakeMarkerStyle}></div>
       </div>

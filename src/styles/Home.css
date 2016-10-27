@@ -1,1 +1,12 @@
-
+.home-component{
+    height: 528px;
+    text-align: center;
+    border: 1px solid #ddd;
+    margin: 50px;
+    padding: 50px;
+}
+img{
+	display: block;
+	width: 50px;
+	margin: 0 auto;
+}

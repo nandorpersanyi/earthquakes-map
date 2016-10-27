@@ -1,18 +1,43 @@
 /* Base Application Styles */
 body {
-  color: #fff;
-  background: #222;
+  color:#fff;
+  background:#222;
+  font-size:14px;
 }
 a{
   text-decoration: none;
   color:#fff;
+}
+input,select{
+  padding: 0px;
+  margin:0px;
+  height: 20px;
+  border: 0px;
+}
+h1,h2,h3,h4{
+  margin: 0px;
+  padding:0px;
+}
+h1{
+  font-size: 1.6em;
+}
+h2{
+  font-size: 1.4em;
+}
+h3{
+  font-size: 1.2em;
+}
+ul{
+  margin: 0px;
+  padding: 10px;
 }
 .index,.index main,.index nav,.index ul{
   float: left;
   width: 100%;
 }
 .index nav{
-  border-bottom: 1px solid #fff;
+  background-color: #424242;
+  border-bottom: 1px solid #ccc;
 }
 .index img {
   margin: 40px auto;

@@ -18,7 +18,7 @@ class Earthquake extends EventEmitter{
 		switch(action.type){
 			case 'FETCHING_EARTHQUAKES':{
 				this.earthquakes.ready = {display:'block'};
-				this.emit("change");
+				this.emit('change');
 				break;
 			}
 			case 'RECEIVED_EARTHQUAKES':{

@@ -12,7 +12,7 @@ class Layout extends React.Component {
 			<nav>
 				<ul>
 					<li><Link to="/">Home</Link></li>
-					<li><Link to="/dashboard">Dashboard</Link></li>
+					<li><Link to="/dashboard">Earthquakes Map</Link></li>
 				</ul>
 			</nav>
 			<main>{this.props.children}</main>

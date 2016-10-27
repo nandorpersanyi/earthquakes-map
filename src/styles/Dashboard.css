@@ -4,7 +4,9 @@
     position: relative;
 }
 #map-wrap > div:first-child {
-  height:700px !important;
+	height:700px !important;
+	border-top: 1px solid #fff;
+	border-bottom: 1px solid #fff;
 }
 #load-screen{
 	position: absolute;
@@ -22,7 +24,7 @@
 #map-title h2{
     text-align: center;
     width: 100%;
-    margin: 0px;
+    line-height: 30px;
 }
 #select-timeframe{
 	position: absolute;

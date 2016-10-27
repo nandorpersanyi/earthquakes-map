@@ -8,7 +8,7 @@ class Footer extends React.Component {
   render() {
     return (
       <div className="footer-component">
-        <footer>Footer</footer>
+        <footer><span>Earthquakes Map by Nandor Persanyi 2016</span></footer>
       </div>
     );
   }

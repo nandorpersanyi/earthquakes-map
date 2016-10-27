@@ -1,1 +1,9 @@
-
+footer{
+	float: left;
+    width: 100%;
+	text-align: center;
+}
+footer span{
+	display: block;
+	padding: 20px 0px;
+}
