@@ -1,6 +1,7 @@
 'use strict';
 
 import React from 'react';
+import { Link } from 'react-router';
 
 require('styles//Home.css');
 
@@ -8,7 +9,8 @@ class Home extends React.Component {
   render() {
     return (
       <div className='home-component'>
-        <h1 id='homepage-title'>Earthquakes Map</h1> 
+        <h1 id='homepage-title'>Earthquakes Map</h1>
+        <Link to="/dashboard"><button>Go to the dashboard</button></Link>
         <p>This dashboard visualizes all registered earthquakes around the world in the past 7 days/ past day/ past hour.</p>
         <p>All the data on this site is made available under the Open Government Licence.</p>
         <p>Data Source:<a href='http://earthquake.usgs.gov/'>http://earthquake.usgs.gov/</a></p>
