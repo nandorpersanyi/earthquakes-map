@@ -72,7 +72,7 @@ class Dashboard extends React.Component {
 				<div id="map-wrap">
 					<GoogleMap
 						bootstrapURLKeys={{
-							key: 'AIzaSyCckxILw3tv3EBFHx3Pi90dgzIHABhGqOc',
+							key: 'YOUR_API_KEY',
 							language: 'en'
 						}}
 						defaultCenter={this.props.center}
