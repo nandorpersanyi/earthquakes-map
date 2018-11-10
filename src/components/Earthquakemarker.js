@@ -7,21 +7,24 @@ class Earthquakemarker extends React.Component {
         super();
         this.state = {
             showDesc: { display: 'none' },
-            plotColor: 'rgba(255,0,0,'
+            plotColor: 'rgba(255,0,0,',
+            //hoverSize: 1
         }
     }
 
     showDetails = () => {
         this.setState({
             showDesc: { display: 'block' },
-            plotColor: 'rgba(1,196,1,'
+            plotColor: 'rgba(1,196,1,',
+            //hoverSize: 1.2
         });
     }
 
     hideDetails = () => {
         this.setState({
             showDesc: { display: 'none' },
-            plotColor: 'rgba(255,0,0,'
+            plotColor: 'rgba(255,0,0,',
+            //hoverSize: 1
         });
     }
 
@@ -29,11 +32,11 @@ class Earthquakemarker extends React.Component {
         const { mag, title, tsunami, status, place } = this.props.properties;
         const quakeRatio = mag * 10;
         const earthquakeMarkerStyle = {
-            width: (quakeRatio).toFixed(0) + 'px',
-            height: (quakeRatio).toFixed(0) + 'px',
-            marginTop: '-' + ((quakeRatio) / 2).toFixed(0) + 'px',
-            marginLeft: '-' + ((quakeRatio) / 2).toFixed(0) + 'px',
-            backgroundColor: this.state.plotColor + (mag * 0.115).toFixed(1) + ')'
+            width: quakeRatio + 'px',
+            height: quakeRatio + 'px',
+            marginTop: '-' + ((quakeRatio) / 2) + 'px',
+            marginLeft: '-' + ((quakeRatio) / 2) + 'px',
+            backgroundColor: this.state.plotColor + (mag * 0.115) + ')'
         };
 
         return (
@@ -51,11 +54,5 @@ class Earthquakemarker extends React.Component {
         );
     }
 }
-
-Earthquakemarker.displayName = 'Earthquakemarker';
-
-// Uncomment properties you need
-// EarthquakeMarkerComponent.propTypes = {};
-// EarthquakeMarkerComponent.defaultProps = {};
 
 export default Earthquakemarker;

@@ -6,6 +6,8 @@
 	-webkit-border-radius: 70px; 
 	border-radius: 70px;
 	cursor:pointer;
+	-webkit-transition: background-color 0.8s; /* Safari */
+	transition: background-color 0.8s;
 }
 .earthquake-description{
 	position: absolute;

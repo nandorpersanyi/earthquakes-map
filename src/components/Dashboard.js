@@ -29,7 +29,7 @@ export default class Dashboard extends Component {
 	}
 
 	componentWillMount() {
-		EarthquakeActions.getEarthquakes('past-day');
+		EarthquakeActions.getEarthquakes(this.state.selectedTimeFrame);
 		EarthquakeStore.on('change', () => {
 			const updateEarthquakes = EarthquakeStore.getAll();
 			this.setState({
@@ -68,9 +68,9 @@ export default class Dashboard extends Component {
 						<h2>{this.props.mapTitle}</h2>
 						<div id="select-timeframe">
 						<Select onChange={this.changeTimeFrame} value={this.state.selectedTimeFrame}>
-							<MenuItem value="past-day">Past Day</MenuItem>
-							<MenuItem value="past-hour">Past Hour</MenuItem>
-							<MenuItem value="past-7days">Past 7 Days</MenuItem>
+							<MenuItem value="past-day">past Day</MenuItem>
+							<MenuItem value="past-hour">past Hour</MenuItem>
+							<MenuItem value="past-7days">past 7 Days</MenuItem>
 						</Select>
 						</div>
 					</div>
@@ -91,5 +91,3 @@ export default class Dashboard extends Component {
 		);
 	}
 }
-
-Dashboard.displayName = 'Dashboard';
