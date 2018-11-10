@@ -1,26 +1,28 @@
 import React, { Component } from 'react';
-import GoogleMap from 'google-map-react';
 import EarthquakeStore from '../stores//Earthquake';
 import * as EarthquakeActions from '../actions/EarthquakeActions';
+import MapHeader from './MapHeader';
+import GoogleMap from 'google-map-react';
 import Earthquakemarker from './Earthquakemarker';
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
 
 import '../styles//Dashboard.css';
 
 export default class Dashboard extends Component {
+	
 	constructor() {
 		super();
 		this.state = {
 			earthquakes: [],
-			selectedTimeFrame: 'past-day',
+			filteredEarthquakes: [],
+			selectedTimeFrame: 'past-7days',
+			filterTerm: '',
+			center: { lat: 13.758966, lng: -25.398046 },
+			zoom: 1,
 			ready: { display: 'block' }
 		}
 	}
 
 	static defaultProps = {
-		center: { lat: 13.758966, lng: -25.398046 },
-		zoom: 1,
 		mapTitle: 'All earthquakes in the '
 	};
 
@@ -28,7 +30,30 @@ export default class Dashboard extends Component {
 		EarthquakeActions.getEarthquakes(event.target.value);
 	}
 
-	componentWillMount() {
+	addCountryFilter = (event) => {
+		let filterTerm = event.target.value.toLowerCase();
+		this.setState({
+			filterTerm: filterTerm 
+		})
+		let fullData = this.state.earthquakes;
+
+		let filteredData = fullData.filter((elem) => {
+			if(elem.properties.place.toLowerCase().search(filterTerm) > 0){
+				return elem;
+			}
+		});
+
+		(filteredData.length > 0) ? this.setState({ filteredEarthquakes: filteredData }) : this.setState({ filteredEarthquakes: [] })
+	}
+
+	zoomIn = (lng,lat) => {
+		this.setState({
+			center:{lat:lat,lng:lng},
+			zoom: 2
+		})
+	}
+
+	componentDidMount() {
 		EarthquakeActions.getEarthquakes(this.state.selectedTimeFrame);
 		EarthquakeStore.on('change', () => {
 			const updateEarthquakes = EarthquakeStore.getAll();
@@ -47,44 +72,38 @@ export default class Dashboard extends Component {
 	render() {
 		const loadScreenStyle = this.state.ready;
 
-		const { earthquakes } = this.state;
+		if(this.state.filteredEarthquakes.length === 0 && this.state.filterTerm.length === 0){
+			var earthquakes = this.state.earthquakes;
+		} else {
+			var earthquakes = this.state.filteredEarthquakes;
+		}
+		
 		const mapOptions = {
 			panControl: false,
 			mapTypeControl: false,
 			scrollwheel: false,
 			styles: [{ stylers: [{ 'saturation': -100 }, { 'gamma': 0.8 }, { 'lightness': 4 }, { 'visibility': 'on' }] }]
 		}
-		console.log(earthquakes)
-		const earthquakeMarkers = earthquakes.map(function (elem) {
-			const { 0: lng, 1: lat } = elem.geometry.coordinates;
-			return <Earthquakemarker key={elem.id} lat={lat} lng={lng} {...elem} />
-		});
 
 		return (
 			<div className="dashboard-component">
 				<div id="load-screen" style={loadScreenStyle}>Loading...</div>
-				<div id="map-header">
-					<div id="map-title">
-						<h2>{this.props.mapTitle}</h2>
-						<div id="select-timeframe">
-						<Select onChange={this.changeTimeFrame} value={this.state.selectedTimeFrame}>
-							<MenuItem value="past-day">past Day</MenuItem>
-							<MenuItem value="past-hour">past Hour</MenuItem>
-							<MenuItem value="past-7days">past 7 Days</MenuItem>
-						</Select>
-						</div>
-					</div>
-				</div>
+				<MapHeader mapTitle={this.props.mapTitle} selectedTimeFrame={this.state.selectedTimeFrame} changeTimeFrame={this.changeTimeFrame} addCountryFilter={this.addCountryFilter} />
 				<div id="map-wrap">	
 					<GoogleMap
 						bootstrapURLKeys={{
 							key: 'YOUR_API_KEY',
 							language: 'en'
 						}}
-						defaultCenter={this.props.center}
-						defaultZoom={this.props.zoom}
+						center={this.state.center}
+						zoom={this.state.zoom}
 						options={mapOptions}>
-						{earthquakeMarkers}
+						{
+							earthquakes.map(function (elem) {
+								const { 0: lng, 1: lat } = elem.geometry.coordinates;
+								return <Earthquakemarker zoomIn={this.zoomIn.bind(this,lng,lat)} key={elem.id} lat={lat} lng={lng} {...elem} />
+							}, this)
+						}
 					</GoogleMap>
 				</div>
 			</div>

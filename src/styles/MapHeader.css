@@ -1,0 +1,38 @@
+#map-title{
+	display: inline-block;
+    margin-left: 50%;
+    transform: translate(-50%);
+	height: 50px;
+}
+#map-title h2{
+	display: inline-block;
+	line-height: 50px;
+}
+#select-timeframe{
+	background-color: #fff;
+	display: inline-block;
+	margin-left: 6px;
+}
+.CountryFilter{
+	display: inline-block;
+    float: right;
+    line-height: 35px;
+    height: 35px;
+    margin: 7.5px 0px;height: 50px;
+}
+.CountryFilter .country-filter div div{
+	line-height: 35px;
+    height: 35px;
+}
+.CountryFilter input{
+	line-height: 35px;
+    height: 35px;
+	margin: 7.5px 0px;
+    background-color: #fff;
+    padding: 0px;
+    width: 250px;
+}
+.CountryFilter button{
+	background-color: #fff;
+	margin-left: 10px;
+}

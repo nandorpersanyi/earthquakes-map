@@ -18,18 +18,3 @@
 	font-size: 2em;
 	background-color: rgba(0,0,0,0.6);
 }
-#map-title{
-	display: inline-block;
-    margin-left: 50%;
-    transform: translate(-50%);
-	height: 50px;
-}
-#map-title h2{
-	display: inline-block;
-	line-height: 50px;
-}
-#select-timeframe{
-	background-color: #fff;
-	display: inline-block;
-	margin-left: 6px;
-}

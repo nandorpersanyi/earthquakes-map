@@ -23,6 +23,11 @@ export function getEarthquakes(timeFrame) {
 			apiselectedTimeFrame = 'past-7days';
 			break;
 		}
+		case 'past-30days': {
+			apiTimeframe = 'https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/1.0_month.geojson';
+			apiselectedTimeFrame = 'past-30days';
+			break;
+		}
 	}
 
 	Request(

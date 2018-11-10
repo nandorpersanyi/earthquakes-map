@@ -48,7 +48,7 @@ class Earthquakemarker extends React.Component {
                     <span><strong>Magnitude: </strong>{mag}</span>
                     <span><strong>Status: </strong>{status}</span>
                 </div>
-                <div onMouseOver={this.showDetails} onMouseOut={this.hideDetails} className="earthquake-marker-round" style={earthquakeMarkerStyle}></div>
+                <div onClick={this.props.zoomIn} onMouseOver={this.showDetails} onMouseOut={this.hideDetails} className="earthquake-marker-round" style={earthquakeMarkerStyle}></div>
             </div>
 
         );
