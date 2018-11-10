@@ -2,12 +2,11 @@
 
 [http://web.nandorpersanyi.com/earthquakes-map/](http://web.nandorpersanyi.com/earthquakes-map/ "Earthquakes Map")
 
-- username: earthquakes
-- password: map1234
-
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+
 Add your Google Maps API key: `src/components/Dashboard.js`
+
 
 ## Available Scripts
 
