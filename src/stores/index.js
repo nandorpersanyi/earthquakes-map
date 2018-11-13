@@ -8,17 +8,19 @@ const initialState = {
     filteredEarthquakes: [],
     selectedTimeFrame: 'past-7days',
     filterTerm: '',
-    center: { lat: 13.758966, lng: -25.398046 },
-    zoom: 1,
     ready: { display: 'block' }
 }
 
 const reducer = (state = initialState, action) => {
-    console.log('reducer action: ',action);
     const newState = {...state};
     if(action.type === 'GET_EARTHQUAKES'){
-        console.log(action)
-        //newState.earthquakes = 
+        newState.earthquakes = action.value.data.features;
+        newState.selectedTimeFrame = action.value.selectedTimeFrame;
+        newState.ready = action.value.ready;
+    }
+    if(action.type === 'FILTER_EARTHQUAKES'){
+        newState.filterTerm = action.value.filterTerm;
+        newState.filteredEarthquakes = action.value.data;
     }
     return newState;
 }

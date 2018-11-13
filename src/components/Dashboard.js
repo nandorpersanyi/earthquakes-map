@@ -9,51 +9,57 @@ import '../styles//Dashboard.css';
 
 class Dashboard extends Component {
 
+	constructor(props) {
+        super();
+        this.state = {
+            center: { lat: 13.758966, lng: -25.398046 },
+			zoom: 1,
+        }
+	}
+	
 	static defaultProps = {
 		mapTitle: 'All earthquakes in the '
 	};
 
 	changeTimeFrame = (event) => {
-		this.props.getEarthQuakesChange(event.target.value);
+		this.props.getEarthQuakes(event.target.value);
 	}
 
 	addCountryFilter = (event) => {
-		/*let filterTerm = event.target.value.toLowerCase();
-		this.setState({
-			filterTerm: filterTerm 
-		})
+		let filterTerm = event.target.value.toLowerCase();
 		let fullData = this.props.earthquakes;
 
 		let filteredData = fullData.filter((elem) => {
-			if(elem.properties.place.toLowerCase().search(filterTerm) > 0){
-				return elem;
-			}
+			return elem.properties.place.toLowerCase().search(filterTerm) > 0;
 		});
 
-		(filteredData.length > 0) ? this.setState({ filteredEarthquakes: filteredData }) : this.setState({ filteredEarthquakes: [] })
-	*/}
+		if(filteredData.length > 0){
+			this.props.filteredEarthQuakes(filterTerm, filteredData)
+		} else {
+			this.props.filteredEarthQuakes(filterTerm, [])
+		}
+	}
 
 	zoomIn = (lng,lat) => {
 		this.setState({
-			center:{lat:lat,lng:lng},
-			zoom: 2
+			center: { lat: lat, lng: lng },
+			zoom: 1,
 		})
 	}
 
 	componentDidMount() {
-		this.props.getEarthQuakes();
+		this.props.getEarthQuakes(this.props.selectedTimeFrame);
 	}
 
 	render() {
-		console.log(this.props)
 		const loadScreenStyle = this.props.ready;
-
+		let earthquakes;
 		if(this.props.filteredEarthquakes.length === 0 && this.props.filterTerm.length === 0){
-			var earthquakes = this.props.earthquakes;
+			earthquakes = this.props.earthquakes;
 		} else {
-			var earthquakes = this.props.filteredEarthquakes;
+			earthquakes = this.props.filteredEarthquakes;
 		}
-		
+		console.log('redner earthquakes',earthquakes)
 		const mapOptions = {
 			panControl: false,
 			mapTypeControl: false,
@@ -62,7 +68,6 @@ class Dashboard extends Component {
 		}
 
 		return (
-			//console.log(this.props);
 			<div className="dashboard-component">
 				<div id="load-screen" style={loadScreenStyle}>Loading...</div>
 				<MapHeader mapTitle={this.props.mapTitle} selectedTimeFrame={this.props.selectedTimeFrame} changeTimeFrame={this.changeTimeFrame} addCountryFilter={this.addCountryFilter} />
@@ -72,8 +77,8 @@ class Dashboard extends Component {
 							key: 'AIzaSyAGqMSur03kYEGxvCKOHNvUJfLlDo0j7Kg',
 							language: 'en'
 						}}
-						center={this.props.center}
-						zoom={this.props.zoom}
+						center={this.state.center}
+						zoom={this.state.zoom}
 						options={mapOptions}>
 						{
 							earthquakes.map(function (elem) {
@@ -91,21 +96,18 @@ class Dashboard extends Component {
 }
 
 const mapStateToProps = (state) => {
-	//console.log('mapStateToProps', state)
 	return {
 		earthquakes: state.earthquakes,
 		filteredEarthquakes: state.filteredEarthquakes,
 		selectedTimeFrame: state.selectedTimeFrame,
 		filterTerm: state.filterTerm,
-		center: state.center,
-		zoom: state.zoom,
 		ready: state.ready
 	}
 }
 const mapDispatchToProps = (dispatch) => {
 	return {
-		getEarthQuakes: () => dispatch(EarthquakeActions.getEarthQuakes('past-7days')),
-		getEarthQuakesChange: (value) => dispatch(EarthquakeActions.getEarthQuakes(value))
+		getEarthQuakes: (timeFrame) => dispatch(EarthquakeActions.getEarthQuakes(timeFrame)),
+		filteredEarthQuakes: (filterTerm, filteredData) => dispatch(EarthquakeActions.filteredEarthQuakes(filterTerm, filteredData))
 	}
 }
 

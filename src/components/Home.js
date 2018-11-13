@@ -12,7 +12,7 @@ const Home = () => {
                 <p>All the data on this site is made available under the Open Government Licence.</p>
                 <p>Data Source:<a href='http://earthquake.usgs.gov/'>http://earthquake.usgs.gov/</a></p>
                 <p>This code is available on GitHub:</p>
-                <p><a href='https://github.com/nandorpersanyi/earthquakes-map'><img src='images/github-logo-icon-2.png' id='github-logo' /></a></p>
+                <p><a href='https://github.com/nandorpersanyi/earthquakes-map'><img src='images/github-logo-icon-2.png' id='github-logo' alt='Github Logo' /></a></p>
                 <p>Links to some frameworks, libraries and modules I have used for this project:</p>
                 <p><a href='https://facebook.github.io/react/'>https://facebook.github.io/react/</a></p>
                 <p><a href='https://facebook.github.io/flux/'>https://facebook.github.io/flux/</a></p>

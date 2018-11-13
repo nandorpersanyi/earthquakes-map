@@ -1,4 +1,3 @@
-import Request from 'superagent';
 
 export const getEarthQuakes = (value) => {
 	let apiTimeframe = '';
@@ -26,63 +25,24 @@ export const getEarthQuakes = (value) => {
 		}
 		default: 	
 	}
-	return dispatch => {
-		dispatch(apiCall(apiTimeframe,apiselectedTimeFrame,dispatch));
-	}
+
+	return function(dispatch, getState) {
+		return fetch(apiTimeframe)
+			.then(data => data.json())
+			.then(data => {
+				dispatch(dispatchAction({
+					selectedTimeFrame:apiselectedTimeFrame,
+					data:data,
+					ready:{ display: 'none' }}));
+			})
+			.catch(err => dispatch(dispatchAction()));
+		};
 }
 
 export const dispatchAction = (data) => {
-	console.log('async:',data)
 	return { type: "GET_EARTHQUAKES", value: data };
 }
 
-export const apiCall = async (apiTimeframe,apiselectedTimeFrame,dispatch) => {
-
-	const data = await fetch(apiTimeframe);
-	const json = await data.json();
-	console.log(json);
-	dispatch(dispatchAction(json))
-	return json;
+export const filteredEarthQuakes = (filterTerm, data) => {
+	return { type: "FILTER_EARTHQUAKES", value: { filterTerm: filterTerm, data: data} };
 }
-/*import { EventEmitter } from 'events';
-import dispatcher from '../dispatcher';
-
-class Earthquake extends EventEmitter {
-	constructor() {
-		super();
-		this.earthquakes = {
-			selected: '',
-			data: [],
-			ready: { display: 'none' }
-		}
-		this.earthquakeFilters = [];
-	}
-	getAll() {
-		return this.earthquakes;
-	}
-	handleActions(action) {
-		switch (action.type) {
-			case 'FETCHING_EARTHQUAKES': {
-				this.earthquakes.ready = { display: 'block' };
-				this.emit('change');
-				break;
-			}
-			case 'RECEIVED_EARTHQUAKES': {
-				this.earthquakes.data = action.data.body.features;
-				this.earthquakes.selected = action.selected;
-				this.earthquakes.ready = { display: 'none' };
-				this.emit('change');
-				break;
-			}
-			case 'ERROR_EARTHQUAKES': {
-				break;
-			}
-		}
-	}
-}
-
-const EarthquakeStore = new Earthquake();
-dispatcher.register(EarthquakeStore.handleActions.bind(EarthquakeStore))
-
-export default EarthquakeStore;
-*/
