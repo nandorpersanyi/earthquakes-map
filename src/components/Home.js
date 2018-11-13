@@ -1,10 +1,9 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 
 import '../styles/Home.css';
 
-export default class Home extends Component {
-    render() {
+const Home = () => {
         return (
             <div className='home-component'>
                 <h1 id='homepage-title'>Earthquakes Map</h1>
@@ -19,5 +18,6 @@ export default class Home extends Component {
                 <p><a href='https://facebook.github.io/flux/'>https://facebook.github.io/flux/</a></p>
             </div>
         );
-    }
 }
+
+export default Home;
