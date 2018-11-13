@@ -4,7 +4,7 @@ Website: [http://web.nandorpersanyi.com/earthquakes-map/](http://web.nandorpersa
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-For state management, this app uses [https://redux.js.org/](https://redux.js.org/ "Redux")  and [https://github.com/reduxjs/redux-thunk](https://github.com/reduxjs/redux-thunk "Redux")
+For state management, this app uses [https://redux.js.org/](https://redux.js.org/ "Redux")  and [https://github.com/reduxjs/redux-thunk](https://github.com/reduxjs/redux-thunk "Redux-thunk")
 
 Add your Google Maps API key: `src/components/Dashboard.js`
 
