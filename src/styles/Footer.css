@@ -1,9 +1,9 @@
-footer{
+Footer{
 	float: left;
     width: 100%;
 	text-align: center;
 }
-footer span{
+Footer span{
 	display: block;
 	padding: 20px 0px;
 }

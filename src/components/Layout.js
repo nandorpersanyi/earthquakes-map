@@ -6,7 +6,7 @@ import '../styles/Layout.css';
 
 const Layout = (props) => {
     return (
-        <div className="index">
+        <div className="Layout">
             <nav>
                 <ul>
                     <li><Link to="/">Home</Link></li>

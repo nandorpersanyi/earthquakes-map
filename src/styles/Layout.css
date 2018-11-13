@@ -31,21 +31,21 @@ ul{
   margin: 0px;
   padding: 10px;
 }
-.index,.index main,.index nav,.index ul{
+.Layout,.Layout main,.Layout nav,.Layout ul{
   float: left;
   width: 100%;
 }
-.index nav{
+.Layout nav{
   background-color: #424242;
   border-bottom: 1px solid #ccc;
 }
-.index img {
+.Layout img {
   margin: 40px auto;
   border-radius: 4px;
   background: #fff;
   display: block;
 }
-.index .notice {
+.Layout .notice {
   margin: 20px auto;
   padding: 15px 0;
   text-align: center;
@@ -53,10 +53,10 @@ ul{
   border-width: 1px 0;
   background: #666;
 }
-.index ul li{
+.Layout ul li{
   list-style-type: none;
   float: left;
 }
-.index ul li a{
+.Layout ul li a{
   padding: 10px;
 }

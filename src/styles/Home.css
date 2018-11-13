@@ -1,12 +1,16 @@
-.home-component{
+.Home{
     height: 528px;
     text-align: center;
     border: 1px solid #ddd;
     margin: 50px;
     padding: 50px;
 }
-.home-component button{
+.Home a{
+    text-decoration: underline;
+}
+.Home button{
     margin-top: 20px;
+    cursor: pointer;
 }
 img{
 	display: block;

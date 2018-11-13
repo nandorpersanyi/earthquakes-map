@@ -40,7 +40,7 @@ class Earthquakemarker extends React.Component {
         };
 
         return (
-            <div className="earthquakemarker-component">
+            <div className="Earthquakemarker">
                 <div className="earthquake-description" style={this.state.showDesc}>
                     <span><strong>Title: </strong>{title}</span>
                     <span><strong>Place: </strong>{place}</span>

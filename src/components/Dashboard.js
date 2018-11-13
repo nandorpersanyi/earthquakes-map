@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import * as EarthquakeActions from '../stores/actions/Earthquake';
+import * as EarthquakeActions from '../stores/actions/EarthquakeActions';
 import MapHeader from './MapHeader';
 import GoogleMap from 'google-map-react';
 import Earthquakemarker from './Earthquakemarker';
@@ -13,7 +13,7 @@ class Dashboard extends Component {
         super();
         this.state = {
             center: { lat: 13.758966, lng: -25.398046 },
-			zoom: 1,
+			zoom: 1
         }
 	}
 	
@@ -26,6 +26,7 @@ class Dashboard extends Component {
 	}
 
 	addCountryFilter = (event) => {
+		this.props.loadingScreen();
 		let filterTerm = event.target.value.toLowerCase();
 		let fullData = this.props.earthquakes;
 
@@ -52,6 +53,7 @@ class Dashboard extends Component {
 	}
 
 	render() {
+		console.log(this.props)
 		const loadScreenStyle = this.props.ready;
 		let earthquakes;
 		if(this.props.filteredEarthquakes.length === 0 && this.props.filterTerm.length === 0){
@@ -68,9 +70,14 @@ class Dashboard extends Component {
 		}
 
 		return (
-			<div className="dashboard-component">
-				<div id="load-screen" style={loadScreenStyle}>Loading...</div>
-				<MapHeader mapTitle={this.props.mapTitle} selectedTimeFrame={this.props.selectedTimeFrame} changeTimeFrame={this.changeTimeFrame} addCountryFilter={this.addCountryFilter} />
+			<div className="Dashboard">
+				<div id="load-screen" style={loadScreenStyle}>Loading data...</div>
+				<MapHeader 
+					mapTitle={this.props.mapTitle}
+					selectedTimeFrame={this.props.selectedTimeFrame}
+					changeTimeFrame={this.changeTimeFrame}
+					addCountryFilter={this.addCountryFilter}
+					noOfQuakes={this.props.noOfQuakes}/>
 				<div id="map-wrap">	
 					<GoogleMap
 						bootstrapURLKeys={{
@@ -91,13 +98,12 @@ class Dashboard extends Component {
 			</div>
 		);
 	}
-
-
 }
 
 const mapStateToProps = (state) => {
 	return {
 		earthquakes: state.earthquakes,
+		noOfQuakes: state.noOfQuakes,
 		filteredEarthquakes: state.filteredEarthquakes,
 		selectedTimeFrame: state.selectedTimeFrame,
 		filterTerm: state.filterTerm,
@@ -107,7 +113,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
 	return {
 		getEarthQuakes: (timeFrame) => dispatch(EarthquakeActions.getEarthQuakes(timeFrame)),
-		filteredEarthQuakes: (filterTerm, filteredData) => dispatch(EarthquakeActions.filteredEarthQuakes(filterTerm, filteredData))
+		filteredEarthQuakes: (filterTerm, filteredData) => dispatch(EarthquakeActions.filteredEarthQuakes(filterTerm, filteredData)),
+		loadingScreen: () => dispatch(EarthquakeActions.loadingScreen())
 	}
 }
 
