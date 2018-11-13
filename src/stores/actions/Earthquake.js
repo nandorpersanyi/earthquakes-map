@@ -1,13 +1,8 @@
-import dispatcher from '../dispatcher';
-import Request from 'superagent';
 
-export function getEarthquakes(timeFrame) {
-	dispatcher.dispatch({
-		type: 'FETCHING_EARTHQUAKES'
-	});
+export const getEarthQuakes = (value) => {
 	let apiTimeframe = '';
 	let apiselectedTimeFrame = '';
-	switch (timeFrame) {
+	switch (value) {
 		case 'past-day': {
 			apiTimeframe = 'https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_day.geojson';
 			apiselectedTimeFrame = 'past-day';
@@ -28,21 +23,26 @@ export function getEarthquakes(timeFrame) {
 			apiselectedTimeFrame = 'past-30days';
 			break;
 		}
+		default: 	
 	}
 
-	Request(
-		'GET',
-		apiTimeframe
-	).then((data) => {
-		dispatcher.dispatch({
-			type: 'RECEIVED_EARTHQUAKES',
-			selected: apiselectedTimeFrame,
-			data: data
-		});
-	}, (err) => {
-		dispatcher.dispatch({
-			type: 'ERROR_EARTHQUAKES',
-			err: err
-		});
-	});
+	return function(dispatch, getState) {
+		return fetch(apiTimeframe)
+			.then(data => data.json())
+			.then(data => {
+				dispatch(dispatchAction({
+					selectedTimeFrame:apiselectedTimeFrame,
+					data:data,
+					ready:{ display: 'none' }}));
+			})
+			.catch(err => dispatch(dispatchAction()));
+		};
+}
+
+export const dispatchAction = (data) => {
+	return { type: "GET_EARTHQUAKES", value: data };
+}
+
+export const filteredEarthQuakes = (filterTerm, data) => {
+	return { type: "FILTER_EARTHQUAKES", value: { filterTerm: filterTerm, data: data} };
 }

@@ -1,83 +1,65 @@
 import React, { Component } from 'react';
-import EarthquakeStore from '../stores//Earthquake';
-import * as EarthquakeActions from '../actions/EarthquakeActions';
+import { connect } from 'react-redux';
+import * as EarthquakeActions from '../stores/actions/Earthquake';
 import MapHeader from './MapHeader';
 import GoogleMap from 'google-map-react';
 import Earthquakemarker from './Earthquakemarker';
 
 import '../styles//Dashboard.css';
 
-export default class Dashboard extends Component {
-	
-	constructor() {
-		super();
-		this.state = {
-			earthquakes: [],
-			filteredEarthquakes: [],
-			selectedTimeFrame: 'past-7days',
-			filterTerm: '',
-			center: { lat: 13.758966, lng: -25.398046 },
-			zoom: 1,
-			ready: { display: 'block' }
-		}
-	}
+class Dashboard extends Component {
 
+	constructor(props) {
+        super();
+        this.state = {
+            center: { lat: 13.758966, lng: -25.398046 },
+			zoom: 1,
+        }
+	}
+	
 	static defaultProps = {
 		mapTitle: 'All earthquakes in the '
 	};
 
 	changeTimeFrame = (event) => {
-		EarthquakeActions.getEarthquakes(event.target.value);
+		this.props.getEarthQuakes(event.target.value);
 	}
 
 	addCountryFilter = (event) => {
 		let filterTerm = event.target.value.toLowerCase();
-		this.setState({
-			filterTerm: filterTerm 
-		})
-		let fullData = this.state.earthquakes;
+		let fullData = this.props.earthquakes;
 
 		let filteredData = fullData.filter((elem) => {
-			if(elem.properties.place.toLowerCase().search(filterTerm) > 0){
-				return elem;
-			}
+			return elem.properties.place.toLowerCase().search(filterTerm) > 0;
 		});
 
-		(filteredData.length > 0) ? this.setState({ filteredEarthquakes: filteredData }) : this.setState({ filteredEarthquakes: [] })
+		if(filteredData.length > 0){
+			this.props.filteredEarthQuakes(filterTerm, filteredData)
+		} else {
+			this.props.filteredEarthQuakes(filterTerm, [])
+		}
 	}
 
 	zoomIn = (lng,lat) => {
 		this.setState({
-			center:{lat:lat,lng:lng},
-			zoom: 2
+			center: { lat: lat, lng: lng },
+			zoom: 1,
 		})
 	}
 
 	componentDidMount() {
-		EarthquakeActions.getEarthquakes(this.state.selectedTimeFrame);
-		EarthquakeStore.on('change', () => {
-			const updateEarthquakes = EarthquakeStore.getAll();
-			this.setState({
-				earthquakes: updateEarthquakes.data,
-				selectedTimeFrame: updateEarthquakes.selected,
-				ready: updateEarthquakes.ready
-			});
-		})
-	}
-	
-	componentWillUnMount() {
-		EarthquakeStore.unbindListener('change');
+		this.props.getEarthQuakes(this.props.selectedTimeFrame);
 	}
 
 	render() {
-		const loadScreenStyle = this.state.ready;
-
-		if(this.state.filteredEarthquakes.length === 0 && this.state.filterTerm.length === 0){
-			var earthquakes = this.state.earthquakes;
+		const loadScreenStyle = this.props.ready;
+		let earthquakes;
+		if(this.props.filteredEarthquakes.length === 0 && this.props.filterTerm.length === 0){
+			earthquakes = this.props.earthquakes;
 		} else {
-			var earthquakes = this.state.filteredEarthquakes;
+			earthquakes = this.props.filteredEarthquakes;
 		}
-		
+
 		const mapOptions = {
 			panControl: false,
 			mapTypeControl: false,
@@ -88,7 +70,7 @@ export default class Dashboard extends Component {
 		return (
 			<div className="dashboard-component">
 				<div id="load-screen" style={loadScreenStyle}>Loading...</div>
-				<MapHeader mapTitle={this.props.mapTitle} selectedTimeFrame={this.state.selectedTimeFrame} changeTimeFrame={this.changeTimeFrame} addCountryFilter={this.addCountryFilter} />
+				<MapHeader mapTitle={this.props.mapTitle} selectedTimeFrame={this.props.selectedTimeFrame} changeTimeFrame={this.changeTimeFrame} addCountryFilter={this.addCountryFilter} />
 				<div id="map-wrap">	
 					<GoogleMap
 						bootstrapURLKeys={{
@@ -109,4 +91,24 @@ export default class Dashboard extends Component {
 			</div>
 		);
 	}
+
+
 }
+
+const mapStateToProps = (state) => {
+	return {
+		earthquakes: state.earthquakes,
+		filteredEarthquakes: state.filteredEarthquakes,
+		selectedTimeFrame: state.selectedTimeFrame,
+		filterTerm: state.filterTerm,
+		ready: state.ready
+	}
+}
+const mapDispatchToProps = (dispatch) => {
+	return {
+		getEarthQuakes: (timeFrame) => dispatch(EarthquakeActions.getEarthQuakes(timeFrame)),
+		filteredEarthQuakes: (filterTerm, filteredData) => dispatch(EarthquakeActions.filteredEarthQuakes(filterTerm, filteredData))
+	}
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);
