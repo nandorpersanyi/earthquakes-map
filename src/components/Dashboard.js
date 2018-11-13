@@ -59,7 +59,7 @@ class Dashboard extends Component {
 		} else {
 			earthquakes = this.props.filteredEarthquakes;
 		}
-		console.log('redner earthquakes',earthquakes)
+
 		const mapOptions = {
 			panControl: false,
 			mapTypeControl: false,
@@ -74,7 +74,7 @@ class Dashboard extends Component {
 				<div id="map-wrap">	
 					<GoogleMap
 						bootstrapURLKeys={{
-							key: 'AIzaSyAGqMSur03kYEGxvCKOHNvUJfLlDo0j7Kg',
+							key: 'YOUR_API_KEY',
 							language: 'en'
 						}}
 						center={this.state.center}
